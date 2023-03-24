@@ -10,11 +10,55 @@ body {
   background-color: #fafafa;
   color: #212121;
   line-height: 1.5;
+  padding-left: 30px;
 }
-
+h1,
+h2,
+h3,
+p {
+  margin: 0px;
+  padding: 0px;
+}
 #search-box {
   font: inherit;
   padding: 8px;
   max-width: 320px;
   margin-bottom: 16px;
+}
+.country-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 0px;
+}
+.country-item {
+  display: flex;
+  flex-wrap: nowrap;
+
+  align-items: center;
+  gap: 15px;
+  height: 30px;
+  margin: 0px;
+}
+.flag-img {
+  height: 30px;
+  display: block;
+  width: 50px;
+  margin: 0px;
+}
+.country-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.country-head {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  letter-spacing: 0.5;
+}
+.country-descr {
+  font-size: 18px;
+  letter-spacing: 0.5;
 }
