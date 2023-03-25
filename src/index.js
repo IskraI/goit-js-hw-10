@@ -36,9 +36,14 @@ function handleSearchCountry(event) {
         );
       }
     })
-    .catch(() => {
-      Notiflix.Notify.failure('Oops, there is no country with that name.');
-      console.log('Oops, there is no country with that name.');
+    .catch(err => {
+      if (err.message === '404') {
+        Notiflix.Notify.failure('Oops, there is no country with that name.');
+        markupCountryReset();
+        return;
+      }
+
+      console.log('Oops, server fall');
     });
 
   function markupCountryReset() {
