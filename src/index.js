@@ -51,7 +51,7 @@ function handleSearchCountry(event) {
       CountrylistEl.insertAdjacentHTML(
         'beforeend',
         `    <li class = "country-item">
-            <img src='${el.flags.svg}' alt='${el.name}' class='flag-img' width="36" height="18"/>
+            <img src='${el.flags.svg}' alt='${el.name}' class='flag-img' width="50" height="25"/>
             <h2 class='country-name'>${el.name.official}</h2> </li>
           `
       );
@@ -65,7 +65,7 @@ function handleSearchCountry(event) {
     <div class="country-head"> 
        <img src="${
          flags.svg
-       }" alt="${name}" class="flag-img" width="36" height="18" />
+       }" alt="${name}" class="flag-img" width="50" height="25" />
        <h2 class="country-name">${name.official}</h2> 
          </div> 
        <div class="country-descr">
