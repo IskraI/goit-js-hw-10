@@ -12,7 +12,7 @@ searchCountryInputEl.addEventListener(
   'input',
   debounce(handleSearchCountry, DEBOUNCE_DELAY)
 );
-
+let dataSeach = [];
 function handleSearchCountry(event) {
   const searchName = event.target.value.toLowerCase().trim();
   if (!searchName) {
@@ -29,6 +29,7 @@ function handleSearchCountry(event) {
       }
       if ((data.length > 1) & (data.length < 11)) {
         markupCountryList(data);
+        dataSeach = data;
       }
       if (data.length > 11) {
         Notiflix.Notify.info(
@@ -45,32 +46,38 @@ function handleSearchCountry(event) {
 
       console.log('Oops, server fall');
     });
+  // markupCountryReset();
+}
+// Очищение страницы
+function markupCountryReset() {
+  CountryEl.innerHTML = '';
+  CountrylistEl.innerHTML = '';
+}
 
-  function markupCountryReset() {
-    CountryEl.innerHTML = '';
-    CountrylistEl.innerHTML = '';
-  }
-
-  function markupCountryList(array) {
-    array.forEach(el => {
-      CountrylistEl.insertAdjacentHTML(
-        'beforeend',
-        `    <li class = "country-item">
-            <img src='${el.flags.svg}' alt='${el.name}' class='flag-img' width="50" height="25"/>
+//Список стран
+function markupCountryList(array) {
+  let i = 0;
+  array.forEach(el => {
+    CountrylistEl.insertAdjacentHTML(
+      'beforeend',
+      `    <li class = "country-item">
+            <a target="_blank"><img src='${el.flags.svg}' alt='${el.name.official}' class='flag-img' width="50" height="25" data-count = "${i}"/> </a>
             <h2 class='country-name'>${el.name.official}</h2> </li>
           `
-      );
-    });
-  }
+    );
+    i += 1;
+  });
+}
 
-  function markupCountryCard(dataObj) {
-    const { flags, name, capital, population, languages } = dataObj;
+// Карточа страны
+function markupCountryCard(dataObj) {
+  const { flags, name, capital, population, languages } = dataObj;
 
-    CountryEl.innerHTML = `
+  CountryEl.innerHTML = `
     <div class="country-head"> 
-       <img src="${
-         flags.svg
-       }" alt="${name}" class="flag-img" width="50" height="25" />
+       <img src="${flags.svg}" alt="${
+    name.official
+  }" class="flag-img" width="50" height="25" />
        <h2 class="country-name">${name.official}</h2> 
          </div> 
        <div class="country-descr">
@@ -78,5 +85,22 @@ function handleSearchCountry(event) {
        <p> <b> Population:</b> ${population} </p>
        <p> <b>Languages:</b> ${Object.values(languages)} </p>
      </div>`;
+}
+
+//Открытие карточки страны из списка стран
+
+CountrylistEl.addEventListener('click', handleShowContry);
+function handleShowContry(event) {
+  // event.preventDefault();
+  if (event.target.nodeName !== 'IMG') {
+    return;
   }
+  const index = event.target.dataset.count;
+  console.log(index);
+  markupCountryReset();
+
+  markupCountryCard(dataSeach[index]);
+
+  // window.open() {markupCountryCard(dataObj) };
+  console.log(dataSeach[index]);
 }
