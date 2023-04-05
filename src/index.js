@@ -25,7 +25,7 @@ function handleSearchCountry(event) {
       markupCountryReset();
       console.log(data);
       if (data.length === 1) {
-        markupCountryCard(data[0]);
+        markupCountryCard(data[0], CountryEl);
       }
       if ((data.length > 1) & (data.length < 11)) {
         markupCountryList(data);
@@ -43,7 +43,6 @@ function handleSearchCountry(event) {
         markupCountryReset();
         return;
       }
-
       console.log('Oops, server fall');
     });
   // markupCountryReset();
@@ -70,10 +69,10 @@ function markupCountryList(array) {
 }
 
 // Карточа страны
-function markupCountryCard(dataObj) {
+function markupCountryCard(dataObj, element) {
   const { flags, name, capital, population, languages } = dataObj;
-
-  CountryEl.innerHTML = `
+  // console.log(dataObj);
+  return (element.innerHTML = `
     <div class="country-head"> 
        <img src="${flags.svg}" alt="${
     name.official
@@ -84,23 +83,18 @@ function markupCountryCard(dataObj) {
        <p> <b>Capital:</b> ${capital}</p>
        <p> <b> Population:</b> ${population} </p>
        <p> <b>Languages:</b> ${Object.values(languages)} </p>
-     </div>`;
+     </div>`);
 }
 
 //Открытие карточки страны из списка стран
 
 CountrylistEl.addEventListener('click', handleShowContry);
 function handleShowContry(event) {
-  // event.preventDefault();
   if (event.target.nodeName !== 'IMG') {
     return;
   }
   const index = event.target.dataset.count;
-  console.log(index);
-  markupCountryReset();
 
-  markupCountryCard(dataSeach[index]);
-
-  // window.open() {markupCountryCard(dataObj) };
-  console.log(dataSeach[index]);
+  let win = open('', '', `top=10,left=500,width=500,height=250`);
+  win.document.body.innerHTML = markupCountryCard(dataSeach[index], win);
 }
